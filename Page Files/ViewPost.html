@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="ViewPost.css">
+</head>
+<body>
+<div class="content">
+    <header class="header">
+        <nav class="nav">
+            <ul class="navLinks">
+                <li><a href="MainPage.html">Home</a></li>
+                <li><a href="CreatePost.html">Posts</a></li>
+                <li><a href="AccountPage.html">Profile</a></li>
+            </ul>
+            <form class="searchForm" action="http://www.randyconnolly.com/tests/process.php" method="GET">
+                <label>
+                    <textarea class="searchInput" name="search" placeholder="Search..."></textarea>
+                </label>
+                <button type="submit" class="searchButton">Go</button>
+            </form>
+        </nav>
+    </header>
+
+    <main class="posts">
+        <section class="comments">
+            <h2>Post</h2>
+                    <h3>Post1 Title Here</h3>
+                    <p>post1 content goes here...</p>
+        </section>
+    </main>
+
+    <section class="topics">
+        <h2>Topics</h2>
+        <ul class="commentsList" style="list-style-type:none;">
+            <li class="comment">
+                <a href="#"><h3>Topic1 Title Here</h3></a>
+            </li>
+            <li class="comment">
+                <a href="#"><h3>Topic2 Title Here</h3></a>
+            </li>
+        </ul>
+    </section>
+
+    <aside class="ads">
+        <h2>ADS</h2>
+        <ul class="commentsList">
+            <li class="comment">
+                <a href="#"><h3>Ads1 Title Here</h3></a>
+            </li>
+            <li class="comment">
+                <a href="#"><h3>Ads2 Title Here</h3></a>
+            </li>
+        </ul>
+    </aside>
+</div>
+</body>
+</html>

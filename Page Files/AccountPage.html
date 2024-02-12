@@ -9,12 +9,14 @@
 <body>
     <nav class="nav">
         <ul class="navLinks">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Posts</a></li>
-            <li><a href="#">Profile</a></li>
+            <li><a href="MainPage.html">Home</a></li>
+            <li><a href="CreatePost.html">Posts</a></li>
+            <li><a href="AccountPage.html">Profile</a></li>
         </ul>
-        <form class="searchForm">
-            <input type="search" class="searchInput" placeholder="Search...">
+        <form class="searchForm" action="http://www.randyconnolly.com/tests/process.php" method="GET">
+            <label>
+                <textarea class="searchInput" name="search" placeholder="Search..."></textarea>
+            </label>
             <button type="submit" class="searchButton">Go</button>
         </form>
     </nav>
