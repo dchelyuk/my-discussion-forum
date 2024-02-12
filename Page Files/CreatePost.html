@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +10,14 @@
 <body>
     <nav class="nav">
         <ul class="navLinks">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Posts</a></li>
-            <li><a href="#">Profile</a></li>
+            <li><a href="MainPage.html">Home</a></li>
+            <li><a href="CreatePost.html">Posts</a></li>
+            <li><a href="AccountPage.html">Profile</a></li>
         </ul>
         <form class="searchForm" action="http://www.randyconnolly.com/tests/process.php" method="GET">
-            <textarea class="searchInput" name="searh" placeholder="Search..."></textarea>
+            <label>
+                <textarea class="searchInput" name="searh" placeholder="Search..."></textarea>
+            </label>
             <button type="submit" class="searchButton">Go</button>
         </form>
     </nav>
@@ -42,13 +43,17 @@
             <div class=titleTop> Topic Two </div>
             <div class="header">
                 <button class="cancel-button">Cancel</button>
-                <textarea class="post-name-input" name="postName" placeholder="Post Name"></textarea>
+                <label>
+                    <textarea class="post-name-input" name="postName" placeholder="Post Name"></textarea>
+                </label>
                 <div> <img
                         src="https://i.natgeofe.com/k/5e4ea67e-2219-4de4-9240-2992faef0cb6/trump-portrait.jpg?w=1084.125&h=1068.375"
                         alt="Profile Pic" class="profilePic">
                 </div>
             </div>
-            <textarea class="post-content" name="postContent" placeholder="Post content"></textarea>
+            <label>
+                <textarea class="post-content" name="postContent" placeholder="Post content"></textarea>
+            </label>
             <button type="submit" class="submit-post">Submit Post</button>
         </form>
 
