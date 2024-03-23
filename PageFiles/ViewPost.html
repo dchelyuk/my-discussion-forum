@@ -77,7 +77,7 @@
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                fetchComments(); // Reload comments
+                                fetchComments();
                             } else {
                                 alert('Failed to add comment.');
                             }
@@ -91,7 +91,7 @@
                     .then(response => response.json())
                     .then(comments => {
                         const commentsContainer = document.getElementById('commentsContainer');
-                        commentsContainer.innerHTML = ''; // Clear existing comments
+                        commentsContainer.innerHTML = ''; 
                         comments.forEach(comment => {
                             const commentElement = document.createElement('div');
                             commentElement.innerHTML = `

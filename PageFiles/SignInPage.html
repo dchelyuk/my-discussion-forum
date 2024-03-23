@@ -41,9 +41,27 @@
             
             if (!username || !password) {
                 alert('Both username and password are required!');
-                event.preventDefault(); // Prevent form submission
+                event.preventDefault(); 
             }
         });
+        document.getElementById('createAccountForm').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+
+    const formData = new FormData(this);
+    fetch('createUser.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Account created successfully!');
+        } else {
+            alert('Failed to create account: ' + data.message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
     </script>
 </body>
 </html>
