@@ -1,10 +1,13 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
     background-color: #333;
     color: #fff;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
+
 .nav {
     display: flex;
     justify-content: space-between;
@@ -13,32 +16,6 @@ body {
     padding: 0.625em 1.25em;
 }
 
-.searchForm {
-    display: flex;
-    align-items: center;
-}
-
-.searchInput {
-    padding: 0.5em;
-    margin-right: 0.5em;
-    border-radius: 0.25em;
-    border: 1px solid #ddd;
-    background-color: #333;
-    color: #fff;
-}
-
-.searchButton {
-    padding: 0.5em 0.75em;
-    border-radius: 0.25em;
-    border: none;
-    background-color: #0079d3;
-    color: #fff;
-    cursor: pointer;
-}
-
-.searchButton:hover {
-    background-color: #005fa3;
-}
 .navLinks {
     list-style: none;
     padding: 0;
@@ -60,43 +37,92 @@ body {
     text-decoration: underline;
 }
 
-.content {
-    display:grid;
-    grid-template-areas:
-        'header'
-        'posts'
-        'topics'
-        'ads';
+.searchForm {
+    display: flex;
+    align-items: center;
 }
 
-.content > * {
-    padding:1rem;
+.searchInput {
+    margin-right: 0.5em;
+    border-radius: 0.25em;
+    border: 1px solid #ddd;
+    background-color: #333;
+    color: #fff;
 }
 
-.content > .header {
-    grid-area:header;
-    padding: 0;
-    margin: 0;
-}
-.content > .posts {
-    grid-area:posts;
-    border-left: 0.0625em solid #fff;
-    border-right: 0.0625em solid #fff;
-}
-.content > .topics {
-    grid-area:topics;
+.searchButton {
+    padding: 0.5em 0.75em;
+    border-radius: 0.25em;
+    border: none;
+    background-color: #0079d3;
+    color: #fff;
+    cursor: pointer;
 }
 
-.content > .ads {
-    grid-area:ads;
-    background:#8F8F8F;
+.container {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+    padding: 1em;
+    margin-top: 1em;
+    box-sizing: border-box;
 }
 
-@media {
-    .content {
-        grid-template-columns: repeat(5, 1fr);
-        grid-template-areas:
-            'header header header header header'
-            'topics posts posts posts ads';
-    }
+.left-column, .right-column {
+    flex: 1;
+    margin: 0 20px;
+    padding: 1em;
+    border: 0.125em solid #fff;
+}
+
+.main-container {
+    flex: 3;
+    padding: 20px; 
+    margin: 0 20px; 
+    border: 0.125em solid #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-container {
+    margin-bottom: 1em;
+}
+
+.post-image {
+    width: 100%;
+    height: auto;
+    margin-top: 1em;
+}
+
+.comments-section {
+    display: flex;
+    flex-direction: column; 
+}
+
+.comment {
+    margin-top: 1em;
+}
+
+.comment-form {
+    margin-top: 2em;
+}
+
+.comment-input {
+    width: 100%;
+    resize: vertical;
+    border-radius: 0.25em;
+    border: 1px solid #ddd;
+    padding: 0.5em;
+    background-color: #555;
+    color: #fff;
+}
+
+.submit-comment {
+    margin-top: 0.5em;
+    background-color: #0079d3;
+    color: #fff;
+    border: none;
+    border-radius: 0.25em;
+    padding: 0.5em 0.75em;
+    cursor: pointer;
 }

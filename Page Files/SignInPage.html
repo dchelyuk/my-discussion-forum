@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="AccountPage.css"> 
+</head>
+<body>
+    <nav class="nav">
+        <ul class="navLinks">
+            <li><a href="MainPage.html">Home</a></li>
+            <li><a href="CreatePost.html">Posts</a></li>
+            <li><a href="AccountPage.html">Profile</a></li>
+        </ul>
+        <form class="searchForm" action="#" method="GET">
+            <label>
+                <textarea class="searchInput" name="search" placeholder="Search..."></textarea>
+            </label>
+            <button type="submit" class="searchButton">Go</button>
+        </form>
+    </nav>
+    <main class="signinContainer">
+        <form class="signinForm" action="http://www.randyconnolly.com/tests/process.php" method="POST">
+            <h2>Sign In</h2>
+            <div class="formGrp">
+                <label for="signinUsername">Username</label>
+                <input type="text" id="signinUsername" name="username">
+            </div>
+            <div class="formGrp">
+                <label for="signinPassword">Password</label>
+                <input type="password" id="signinPassword" name="password">
+            </div>
+            <button type="submit">Sign In</button>
+        </form>
+    </main>
+</body>
+</html>

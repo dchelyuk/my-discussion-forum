@@ -3,58 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+    <title>View Post with Comments</title>
     <link rel="stylesheet" href="ViewPost.css">
 </head>
 <body>
-<div class="content">
-    <header class="header">
-        <nav class="nav">
-            <ul class="navLinks">
-                <li><a href="MainPage.html">Home</a></li>
-                <li><a href="CreatePost.html">Posts</a></li>
-                <li><a href="AccountPage.html">Profile</a></li>
-            </ul>
-            <form class="searchForm" action="http://www.randyconnolly.com/tests/process.php" method="GET">
-                <label>
-                    <textarea class="searchInput" name="search" placeholder="Search..."></textarea>
-                </label>
-                <button type="submit" class="searchButton">Go</button>
-            </form>
-        </nav>
-    </header>
-
-    <main class="posts">
-        <section class="comments">
-            <h2>Post</h2>
-                    <h3>Post1 Title Here</h3>
-                    <p>post1 content goes here...</p>
-        </section>
-    </main>
-
-    <section class="topics">
-        <h2>Topics</h2>
-        <ul class="commentsList" style="list-style-type:none;">
-            <li class="comment">
-                <a href="#"><h3>Topic1 Title Here</h3></a>
-            </li>
-            <li class="comment">
-                <a href="#"><h3>Topic2 Title Here</h3></a>
-            </li>
+    <nav class="nav">
+        <ul class="navLinks">
+            <li><a href="MainPage.html">Home</a></li>
+            <li><a href="CreatePost.html">Posts</a></li>
+            <li><a href="AccountPage.html">Profile</a></li>
         </ul>
-    </section>
+        <form class="searchForm" action="searchResultsPage.html" method="GET">
+            <label>
+                <textarea class="searchInput" name="search" placeholder="Search..."></textarea>
+            </label>
+            <button type="submit" class="searchButton">Go</button>
+        </form>
+    </nav>
 
-    <aside class="ads">
-        <h2>ADS</h2>
-        <ul class="commentsList">
-            <li class="comment">
-                <a href="#"><h3>Ads1 Title Here</h3></a>
-            </li>
-            <li class="comment">
-                <a href="#"><h3>Ads2 Title Here</h3></a>
-            </li>
-        </ul>
-    </aside>
-</div>
+    <div class="container">
+        <div class="left-column">
+            <h2>Similar Posts</h2>
+       
+            <a href="#">Similar Post 1</a><br>
+            <a href="#">Similar Post 2</a><br>
+            <a href="#">Similar Post 3</a>
+        </div>
+
+        <div class="main-container">
+            <article class="post-container">
+                <h1>Post Title Here</h1>
+                <p>Posted by <a href="#">Username</a> on <time datetime="2022-08-24">August 24, 2022</time></p>
+                <img src="postImageURL.jpg" alt="Post Image" class="post-image">
+                <p class="post-content">Post content goes here...</p>
+            </article>
+            
+            <section class="comments-section">
+                <h2>Comments</h2>
+                <div class="comment" data-comment-date="2022-08-25">
+                    <p class="comment-author">Comment by <a href="#">User1</a> on <time datetime="2022-08-25">August 25, 2022</time></p>
+                    <p class="comment-content">This is the first comment on the post.</p>
+                </div>
+                <div class="comment" data-comment-date="2022-08-26">
+                    <p class="comment-author">Comment by <a href="#">User2</a> on <time datetime="2022-08-26">August 26, 2022</time></p>
+                    <p class="comment-content">Another insightful comment.</p>
+                </div>
+                <!-- pull comments from server -->
+                <form class="comment-form">
+                    <textarea placeholder="Write a comment..." class="comment-input"></textarea>
+                    <button type="submit" class="submit-comment">Submit Comment</button>
+                </form>
+            </section>
+        </div>
+
+        <div class="right-column">
+            <h2>Ad Space</h2>
+     
+            <p>Advertise Here!</p>
+        </div>
+    </div>
 </body>
 </html>
