@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Post with Comments</title>
     <link rel="stylesheet" href="ViewPost.css">
 </head>
+
 <body>
     <nav class="nav">
         <ul class="navLinks">
@@ -24,7 +26,7 @@
     <div class="container">
         <div class="left-column">
             <h2>Similar Posts</h2>
-       
+
             <a href="#">Similar Post 1</a><br>
             <a href="#">Similar Post 2</a><br>
             <a href="#">Similar Post 3</a>
@@ -37,15 +39,17 @@
                 <img src="postImageURL.jpg" alt="Post Image" class="post-image">
                 <p class="post-content">Post content goes here...</p>
             </article>
-            
+
             <section class="comments-section">
                 <h2>Comments</h2>
                 <div class="comment" data-comment-date="2022-08-25">
-                    <p class="comment-author">Comment by <a href="#">User1</a> on <time datetime="2022-08-25">August 25, 2022</time></p>
+                    <p class="comment-author">Comment by <a href="#">User1</a> on <time datetime="2022-08-25">August 25,
+                            2022</time></p>
                     <p class="comment-content">This is the first comment on the post.</p>
                 </div>
                 <div class="comment" data-comment-date="2022-08-26">
-                    <p class="comment-author">Comment by <a href="#">User2</a> on <time datetime="2022-08-26">August 26, 2022</time></p>
+                    <p class="comment-author">Comment by <a href="#">User2</a> on <time datetime="2022-08-26">August 26,
+                            2022</time></p>
                     <p class="comment-content">Another insightful comment.</p>
                 </div>
                 <!-- pull comments from server -->
@@ -55,12 +59,56 @@
                 </form>
             </section>
         </div>
+        <script>  document.addEventListener('DOMContentLoaded', function () {
+                fetchComments();
 
+                document.getElementById('commentForm').addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const username = document.getElementById('username').value;
+                    const comment = document.getElementById('comment').value;
+
+                    fetch('insertComment.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `username=${encodeURIComponent(username)}&comment=${encodeURIComponent(comment)}`
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                fetchComments(); // Reload comments
+                            } else {
+                                alert('Failed to add comment.');
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            });
+
+            function fetchComments() {
+                fetch('RefreshComments.php')
+                    .then(response => response.json())
+                    .then(comments => {
+                        const commentsContainer = document.getElementById('commentsContainer');
+                        commentsContainer.innerHTML = ''; // Clear existing comments
+                        comments.forEach(comment => {
+                            const commentElement = document.createElement('div');
+                            commentElement.innerHTML = `
+                            <p><strong>${comment.username}</strong> (${comment.created_at}):</p>
+                            <p>${comment.comment}</p>
+                        `;
+                            commentsContainer.appendChild(commentElement);
+                        });
+                    })
+                    .catch(error => console.error('Error:', error));
+            }</script>
         <div class="right-column">
             <h2>Ad Space</h2>
-     
+
             <p>Advertise Here!</p>
         </div>
     </div>
 </body>
+
 </html>

@@ -5,10 +5,12 @@ header('Content-Type: application/json');
 $pdo = new PDO('mysql:host=your_host;dbname=your_db', 'username', 'password');
 
 
+// Assuming $conn is your PDO database connection
+$post_id = 1; // Example: the ID of the post you're fetching comments for
 $lastCommentId = isset($_POST['lastCommentId']) ? (int)$_POST['lastCommentId'] : 0;
 
 // Query to fetch new comments
-$stmt = $pdo->prepare("SELECT id, user_id, text, timestamp FROM comments WHERE id > :lastCommentId ORDER BY id ASC");
+$stmt = $pdo->prepare(); //TODO: add sql to fetch comments from database
 $stmt->execute(['lastCommentId' => $lastCommentId]);
 
 // Fetching comments
@@ -35,5 +37,6 @@ function getUserById($userId) {
     global $pdo;
     $stmt = $pdo->prepare("SELECT username FROM users WHERE id = :userId");
     $stmt->execute(['userId' => $userId]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+    return "comment 23" //$stmt->fetch(PDO::FETCH_ASSOC);
 }
+

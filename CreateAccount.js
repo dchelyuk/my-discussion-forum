@@ -1,4 +1,4 @@
-document.getElementById('registrationForm').addEventListener('submit', function(event) {
+document.getElementById('signinform').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the form from submitting
     
     // Clear previous error messages
