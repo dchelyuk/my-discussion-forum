@@ -1,8 +1,11 @@
 <?php
-$host = '';
-$dbname = '';
-$username = '';
-$password = '';
+$host = 'localhost:3308';
+//$dbname = 'db_75934729';
+$dbname = 'cosc360test';
+//$username = '75934729';
+$username = 'root';
+//$password = '75934729';
+$password = '304rootpw';
 $dsn = "";
 
 
@@ -17,7 +20,7 @@ $pass = $_POST['password'];
 $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
 
 
-$sql = ""; // TODO: sql statement to create user
+$sql = "insert into Users values (3, $user, cast(now() as datetime), null, $pass);"; // TODO: change to trigger
 $stmt = $conn->prepare($sql);
 $params = ['username' => $user, 'password' => $hashedPassword];
 
