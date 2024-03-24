@@ -31,7 +31,7 @@ document.getElementById('signinform').addEventListener('submit', function(event)
     
    
     if(valid) {
-      console.log('Form is valid. Proceed with submission or further processing.');
+      console.log('Form is valid.');
       // make ajax call
     }
   });

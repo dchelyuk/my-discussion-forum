@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="AccountPage.css"> 
+</head>
+<body>
+    <nav class="nav">
+        <!-- Navigation Links -->
+    </nav>
+    <main class="signinContainer">
+        <form class="createForm" id="createForm" action="#" method="POST">
+            <h2>Create Account</h2>
+            <!-- Error Messages -->
+            <div id="errorMessages"></div>
+            <div class="formGrp">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username">
+            </div>
+            <div class="formGrp">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password">
+            </div>
+            <button type="submit">Create Account</button>
+        </form>
+    </main>
+    <script>
+        document.getElementById('createForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting
+            
+            const formData = new FormData(this);
+            fetch('createAccount.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Account created successfully!');
+                } else {
+                    alert('Failed to create account: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
