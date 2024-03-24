@@ -11,7 +11,7 @@ $user = $_POST['username'];
 $pass = $_POST['password'];
 $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
 
-// Assuming your Users table has an AUTO_INCREMENT ID and a `date_created` column that defaults to the current timestamp
+
 $sql = "INSERT INTO Users (username, date_created, password) VALUES (:username, NOW(), :password)";
 $stmt = $conn->prepare($sql);
 

@@ -34,75 +34,56 @@
 
         <div class="main-container">
             <article class="post-container">
-                <h1>Post Title Here</h1>
-                <p>Posted by <a href="#">Username</a> on <time datetime="2022-08-24">August 24, 2022</time></p>
-                <img src="postImageURL.jpg" alt="Post Image" class="post-image">
-                <p class="post-content">Post content goes here...</p>
+                <h1 id="post-title">Post Title Here</h1>
+                <p>Posted by <a id="post-author" href="#">Username</a> on <time id="post-date" datetime="2022-08-24">August 24, 2022</time></p>
+                <img id="post-image" src="postImageURL.jpg" alt="Post Image" class="post-image">
+                <p class="post-content" id="post-content">Post content goes here...</p>
+            </article>
             </article>
 
             <section class="comments-section">
                 <h2>Comments</h2>
-                <div class="comment" data-comment-date="2022-08-25">
-                    <p class="comment-author">Comment by <a href="#">User1</a> on <time datetime="2022-08-25">August 25,
-                            2022</time></p>
-                    <p class="comment-content">This is the first comment on the post.</p>
-                </div>
-                <div class="comment" data-comment-date="2022-08-26">
-                    <p class="comment-author">Comment by <a href="#">User2</a> on <time datetime="2022-08-26">August 26,
-                            2022</time></p>
-                    <p class="comment-content">Another insightful comment.</p>
-                </div>
-                <!-- pull comments from server -->
+                <!-- Container for dynamically inserting comments -->
+                <div id="comments-container"></div>
+                <!-- Form remains the same -->
                 <form class="comment-form">
                     <textarea placeholder="Write a comment..." class="comment-input"></textarea>
                     <button type="submit" class="submit-comment">Submit Comment</button>
                 </form>
+                
             </section>
         </div>
-        <script>  document.addEventListener('DOMContentLoaded', function () {
-                fetchComments();
-
-                document.getElementById('commentForm').addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    const username = document.getElementById('username').value;
-                    const comment = document.getElementById('comment').value;
-
-                    fetch('insertComment.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `username=${encodeURIComponent(username)}&comment=${encodeURIComponent(comment)}`
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                fetchComments();
-                            } else {
-                                alert('Failed to add comment.');
-                            }
-                        })
-                        .catch(error => console.error('Error:', error));
+        <script> document.addEventListener('DOMContentLoaded', () => {
+            
+            fetchCommentsData();
+        });
+        
+        function fetchCommentsData() {
+            fetch('/fetchComments.php', { 
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'lastCommentId=0' //  send the last comment ID dynamically
+            })
+            .then(response => response.json())
+            .then(data => {
+                const commentsContainer = document.getElementById('comments-container');
+                commentsContainer.innerHTML = ''; // Clear existing comments
+                data.comments.forEach(comment => {
+                    const commentElement = document.createElement('div');
+                    commentElement.classList.add('comment');
+                    commentElement.innerHTML = `
+                        <p class="comment-author">Comment by <a href="#">${comment.user}</a> on <time datetime="${comment.timestamp}">${new Date(comment.timestamp).toLocaleString()}</time></p>
+                        <p class="comment-content">${comment.text}</p>
+                    `;
+                    commentsContainer.appendChild(commentElement);
                 });
-            });
-
-            function fetchComments() {
-                fetch('RefreshComments.php')
-                    .then(response => response.json())
-                    .then(comments => {
-                        const commentsContainer = document.getElementById('commentsContainer');
-                        commentsContainer.innerHTML = ''; 
-                        comments.forEach(comment => {
-                            const commentElement = document.createElement('div');
-                            commentElement.innerHTML = `
-                            <p><strong>${comment.username}</strong> (${comment.created_at}):</p>
-                            <p>${comment.comment}</p>
-                        `;
-                            commentsContainer.appendChild(commentElement);
-                        });
-                    })
-                    .catch(error => console.error('Error:', error));
-            }</script>
+            })
+            .catch(error => console.error('Error fetching comments data:', error));
+        }
+        
+        </script>
         <div class="right-column">
             <h2>Ad Space</h2>
 
