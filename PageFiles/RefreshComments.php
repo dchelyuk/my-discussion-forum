@@ -14,11 +14,11 @@ $pdo = new PDO('mysql:host=localhost:3308;dbname=cosc360test', 'root', '304rootp
 
 
 
-$post_id = 1; 
+$post_id = 8;
 $lastCommentId = isset($_POST['lastCommentId']) ? (int)$_POST['lastCommentId'] : 0;
 
 
-$stmt = $pdo->prepare('select * from Comments order by commentCreateDate desc;'); //TODO: add comments to database
+$stmt = $pdo->prepare('select * from Comments where postId = '. $post_id . ' order by commentCreateDate desc;');
 $stmt->execute(['lastCommentId' => $lastCommentId]);
 
 
