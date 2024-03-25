@@ -1,5 +1,8 @@
 <?php
-header('Content-Type: application/json');
+// Database connection parameters
+//$dsn = "mysql:host=localhost;dbname=cosc360test";
+//$username = "root";
+//$password = "304rootpw";
 
 $host = 'localhost:3308';
 //$dbname = 'db_75934729';
@@ -8,11 +11,9 @@ $dbname = 'cosc360test';
 $username = 'root';
 //$password = '75934729';
 $password = '304rootpw';
-$dsn = "";
 
 //$conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 //$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 
 try {
     // Create a new PDO instance
@@ -34,28 +35,13 @@ try {
     $stmt->execute();
 
     // Fetch data and save it in an array
-    $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    // Print or manipulate the data as needed
+    print_r($data);
 
 } catch (PDOException $e) {
     // Handle errors gracefully
     echo "Connection failed: " . $e->getMessage();
 }
-
-$response = [];
-
-foreach ($comments as $comment) {
-
-    $response[] = [
-        'id' => $comment['commentId'],
-        'text' => $comment['data'],
-        'timestamp' => $comment['commentCreateDate'],
-    ];
-}
-
-echo json_encode($response);
-//echo var_export($response);
-//echo var_export($response[0]['text']);
-// Example function to fetch user details depending on danylos database
-
-
+?>

@@ -54,12 +54,12 @@
             </section>
         </div>
         <script> document.addEventListener('DOMContentLoaded', () => {
-            
+
             fetchCommentsData();
         });
         
         function fetchCommentsData() {
-            fetch('/fetchComments.php', { 
+            fetch('RefreshComments.php', {
                 method: 'POST', 
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
