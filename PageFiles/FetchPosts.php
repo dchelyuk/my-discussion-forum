@@ -1,21 +1,14 @@
 <?php
+// Attempts to fetch posts and populate main page. lots to do, still in prototype stage
 header('Content-Type: application/json');
 
 $host = 'localhost:3308';
-//$dbname = 'db_75934729';
 $dbname = 'cosc360test';
-//$username = '75934729';
 $username = 'root';
-//$password = '75934729';
 $password = '304rootpw';
-$dsn = "";
 
+// TODO: put pdo conn into try catch
 $pdo = new PDO('mysql:host=localhost:3308;dbname=cosc360test', 'root', '304rootpw');
-
-
-//
-//$post_id = 8;
-//$lastCommentId = isset($_POST['lastCommentId']) ? (int)$_POST['lastCommentId'] : 0;
 
 
 $stmt = $pdo->prepare('select * from Posts order by postCreateDate desc;');

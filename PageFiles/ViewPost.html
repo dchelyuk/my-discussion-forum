@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<!-- Very big webpage. script can be split and put into different files. this is the example for how we will perform other functionalities.
+it is mostly complete, just needs to fetch and populate post data simularily to how comment data is fetched -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,53 +36,89 @@
         <div class="main-container">
             <article class="post-container">
                 <h1 id="post-title">Post Title Here</h1>
+                <!-- TODO: replace post-image and content with one from database -->
                 <p>Posted by <a id="post-author" href="#">Username</a> on <time id="post-date" datetime="2022-08-24">August 24, 2022</time></p>
-                <img id="post-image" src="postImageURL.jpg" alt="Post Image" class="post-image">
+                <img id="post-image" src="boat.jpg" alt="Post Image" class="post-image">
                 <p class="post-content" id="post-content">Post content goes here...</p>
             </article>
             </article>
 
             <section class="comments-section">
                 <h2>Comments</h2>
-                <!-- Container for dynamically inserting comments -->
                 <div id="comments-container"></div>
-                <!-- Form remains the same -->
-                <form class="comment-form">
-                    <textarea placeholder="Write a comment..." class="comment-input"></textarea>
+                <form class="comment-form" action="CreateComment.php" method="POST">
+                    <input type="hidden" name="postId" value="8" /> 
+                    <textarea name="commentText" placeholder="Write a comment..." class="comment-input"></textarea>
                     <button type="submit" class="submit-comment">Submit Comment</button>
                 </form>
                 
             </section>
         </div>
-        <script> document.addEventListener('DOMContentLoaded', () => {
+        <script> // TODO: put into own file or one for refresh one for create comment
+      document.addEventListener('DOMContentLoaded', () => {
+    fetchCommentsData();
+    setInterval(fetchCommentsData, 5000);
+});
 
-            fetchCommentsData();
-        });
-        
-        function fetchCommentsData() {
-            fetch('RefreshComments.php', {
-                method: 'POST', 
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: 'lastCommentId=0' //  send the last comment ID dynamically
-            })
-            .then(response => response.json())
-            .then(data => {
-                const commentsContainer = document.getElementById('comments-container');
-                commentsContainer.innerHTML = ''; // Clear existing comments
-                data.comments.forEach(comment => {
-                    const commentElement = document.createElement('div');
-                    commentElement.classList.add('comment');
-                    commentElement.innerHTML = `
-                        <p class="comment-author">Comment by <a href="#">${comment.user}</a> on <time datetime="${comment.timestamp}">${new Date(comment.timestamp).toLocaleString()}</time></p>
-                        <p class="comment-content">${comment.text}</p>
-                    `;
-                    commentsContainer.appendChild(commentElement);
-                });
-            })
-            .catch(error => console.error('Error fetching comments data:', error));
+function fetchCommentsData() {
+    fetch('RefreshComments.php', {
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'lastCommentId=0'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok: ' + response.statusText);
         }
+        return response.json();
+    })
+    .then(data => {
+        const commentsContainer = document.getElementById('comments-container');
+        commentsContainer.innerHTML = ''; 
+        
+        
+        data.forEach(comment => {
+            const commentElement = document.createElement('div');
+            commentElement.classList.add('comment');
+            commentElement.innerHTML = `
+                <p class="comment-content">${comment.text}</p>
+                <p class="comment-timestamp">Posted on <time datetime="${comment.timestamp}">${new Date(comment.timestamp).toLocaleString()}</time></p>
+            `;
+            commentsContainer.appendChild(commentElement);
+        });
+    })
+    .catch(error => {
+        console.error('Error fetching comments data:', error);
+        alert('Error fetching comments. Please check the console for more information.');
+    });
+}
+document.addEventListener('DOMContentLoaded', function() {
+    const commentForm = document.querySelector('.comment-form');
+    commentForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+
+        fetch('CreateComment.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Comment added successfully!');
+                commentForm.reset();
+                fetchCommentsData();
+                
+
+            } else {
+                alert('Failed to add comment: ' + data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});
         
         </script>
         <div class="right-column">
