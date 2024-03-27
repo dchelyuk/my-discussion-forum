@@ -37,7 +37,7 @@ it is mostly complete, just needs to fetch and populate post data simularily to 
             <article class="post-container">
                 <h1 id="post-title">Post Title Here</h1>
                 <!-- TODO: replace post-image and content with one from database -->
-                <p>Posted by <a id="post-author" href="#">Username</a> on <time id="post-date" datetime="2022-08-24">August 24, 2022</time></p>
+                <p>Posted by <a id="post-author" href="#">Username</a> on <time id="post-date" datetime="2017-08-08">August 24, 2022</time></p>
                 <img id="post-image" src="boat.jpg" alt="Post Image" class="post-image">
                 <p class="post-content" id="post-content">Post content goes here...</p>
             </article>
@@ -54,12 +54,39 @@ it is mostly complete, just needs to fetch and populate post data simularily to 
                 
             </section>
         </div>
-        <script> // TODO: put into own file or one for refresh one for create comment
+        <script> // TODO: put into own file or one for refresh, one for create comment, one for viewpost
       document.addEventListener('DOMContentLoaded', () => {
+        fetchPostData(); 
     fetchCommentsData();
     setInterval(fetchCommentsData, 5000);
 });
-
+function fetchPostData() {
+    fetch('ViewPost.php', { 
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }})
+    .then(response => {
+       
+        if (!response.ok) {
+            throw new Error('Network response was not ok: ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => { // not my favorite way to do the image thing, TODO: look into better image management stuff 
+        document.getElementById('post-author').textContent = data.userId;
+        document.getElementById('post-title').textContent = data.headline;
+        document.getElementById('post-date').textContent = new Date(data.postCreateDate).toLocaleDateString();
+        document.getElementById('post-date').dateTime = data.postCreateDate;
+        document.getElementById('post-image').src = data.picture_url;
+        document.getElementById('post-image').alt = `Image for ${data.headline}`;
+        document.getElementById('post-content').textContent = data.data;
+    })
+    .catch(error => {
+        console.error('Error fetching post data:', error);
+        alert('Error fetching post. Please check the console for more information.');
+    });
+}
 function fetchCommentsData() {
     fetch('RefreshComments.php', {
         method: 'POST', 
@@ -70,7 +97,7 @@ function fetchCommentsData() {
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok: ' + response.statusText);
+            throw new Error('broken network response: ' + response.statusText);
         }
         return response.json();
     })
@@ -91,7 +118,7 @@ function fetchCommentsData() {
     })
     .catch(error => {
         console.error('Error fetching comments data:', error);
-        alert('Error fetching comments. Please check the console for more information.');
+        alert('Error fetching comment');
     });
 }
 document.addEventListener('DOMContentLoaded', function() {

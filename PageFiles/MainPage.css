@@ -1,9 +1,29 @@
+/*TODO: I just coppied the AccountPage.css to get the styles the same. there is a lot herre that isnt needed and can be removed */
+
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
     background-color: #333;
     color: #fff;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profilePic {
+    width: 6.25em;
+    height: 6.25em;
+    border-radius: 50%;
+    border: 0.125em solid #fff;
+    margin-bottom: 0.625em;
+    object-fit: cover;
 }
 .nav {
     display: flex;
@@ -11,33 +31,6 @@ body {
     align-items: center;
     background-color: #222;
     padding: 0.625em 1.25em;
-}
-
-.searchForm {
-    display: flex;
-    align-items: center;
-}
-
-.searchInput {
-    padding: 0.5em;
-    margin-right: 0.5em;
-    border-radius: 0.25em;
-    border: 1px solid #ddd;
-    background-color: #333;
-    color: #fff;
-}
-
-.searchButton {
-    padding: 0.5em 0.75em;
-    border-radius: 0.25em;
-    border: none;
-    background-color: #0079d3;
-    color: #fff;
-    cursor: pointer;
-}
-
-.searchButton:hover {
-    background-color: #005fa3;
 }
 .navLinks {
     list-style: none;
@@ -60,45 +53,127 @@ body {
     text-decoration: underline;
 }
 
-.content {
-    display:grid;
-    grid-template-areas:
-        'header'
-        'posts'
-        'topics'
-        'ads';
+.searchForm {
+    display: flex;
+    align-items: center;
+}
+
+.searchInput {
+    margin-right: 0.5em;
+    border-radius: 0.25em;
+    border: 1px solid #ddd;
+    background-color: #333;
+    color: #fff;
+}
+
+.searchButton {
+    padding: 0.5em 0.75em;
+    border-radius: 0.25em;
+    border: none;
+    background-color: #0079d3;
+    color: #fff;
+    cursor: pointer;
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    padding: 1em;
+    width: 100%;
+    margin-top: 5em;
+    box-sizing: border-box;
+}
+
+.left-column,
+.right-column {
+    flex: 1;
+    padding: 1em;
+    border: 0.125em solid #fff;
+}
+
+.topics-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.topics-list li {
+    padding: 0.5em 0;
+}
+
+.form-container {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin: 2em 2em;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+.cancel-button,
+.submit-post {
+    background-color: #0079d3;
+    color: #fff;
+    border: none;
+    border-radius: 0.25em;
+    padding: 0.5em 0.75em;
+    cursor: pointer;
+}
+
+.cancel-button:hover,
+.submit-post:hover {
+    background-color: #005fa3;
+}
+
+.cancel-button {
+    background-color: #0079d3;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    cursor: pointer;
+    width: 100px;
 }
 
 
-.content > * {
-    padding:1rem;
+
+
+
+.submit-post {
+    align-self: flex-end;
 }
 
+.right-column {
+    text-align: center;
+}
 
-.content > .header {
-    grid-area:header;
+.posts-list {
+    list-style-type: none;
     padding: 0;
     margin: 0;
 }
-.content > .posts {
-    grid-area:posts;
-    border-left: 0.0625em solid #fff;
-    border-right: 0.0625em solid #fff;
-}
-.content > .topics {
-    grid-area:topics;
+
+.posts-list li {
+    background-color: #444;
+    color: #fff;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
 }
 
-.content > .ads {
-    grid-area:ads;
-    background:#8F8F8F;
+.posts-list li:last-child {
+    border-bottom: none;
 }
 
-@media {
-    .content {
-        grid-template-columns: repeat(5, 1fr);
-        grid-template-areas:
-            'header header header header header'
-            'topics posts posts posts ads';
-    }
+.main-container, .left-column, .right-column {
+    color: #fff;
+}
+
+.posts-list h3, .posts-list p {
+    color: #fff;
 }

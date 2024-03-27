@@ -1,43 +1,26 @@
 <?php
-// Attempts to fetch posts and populate main page. lots to do, still in prototype stage
+ini_set('display_errors', 0);
+error_reporting(0);
+// TODO figure out what data we want to display on main page under each post
 header('Content-Type: application/json');
 
 $host = 'localhost:3308';
 $dbname = 'cosc360test';
 $username = 'root';
 $password = '304rootpw';
-
-// TODO: put pdo conn into try catch
+try {
 $pdo = new PDO('mysql:host=localhost:3308;dbname=cosc360test', 'root', '304rootpw');
+$sql = "SELECT postId, headline FROM Posts ORDER BY postId DESC";
 
-
-$stmt = $pdo->prepare('select * from Posts order by postCreateDate desc;');
-$stmt->execute(['lastCommentId' => $lastCommentId]);
-
-
-$comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
-$response = ['comments' => []];
-
-foreach ($comments as $comment) {
-
-    $user = getUserById($comment['user_id']);
-    $response['comments'][] = [
-        'id' => $comment['id'],
-        'user' => $user['username'], 
-        'text' => $comment['text'],
-        'timestamp' => $comment['timestamp'],
-    ];
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+echo json_encode(['posts' => $posts]);
+} catch(PDOException $e) {
+echo json_encode(['error' => $e->getMessage()]);
 }
 
-echo json_encode($response);
 
-// Example function to fetch user details depending on danylos database
-function getUserById($userId) {
-    global $pdo;
-    $stmt = $pdo->prepare('select * from Users where userId = ' . $userId . ';'); // TODO: what data is needed?
-    $stmt->execute(['userId' => $userId]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
+
+
 
