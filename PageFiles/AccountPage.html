@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="AccountPage.css">
 </head>
 <body>
-    <!--TODO: fill with data from database, populate comments same way as we do on posts but with different sql commants-->
+<!--TODO: fill with data from database, populate comments same way as we do on posts but with different sql commants-->
     <nav class="nav">
         <ul class="navLinks">
             <li><a href="MainPage.html">Home</a></li>
@@ -26,10 +26,11 @@
     </nav>
     <header class="profileHdr">
         <div class="profileInfo">
-            <img src="https://i.natgeofe.com/k/5e4ea67e-2219-4de4-9240-2992faef0cb6/trump-portrait.jpg?w=1084.125&h=1068.375" alt="Profile Pic" class="profilePic">
-            <h1>Username</h1>
+            <img id="account-picture_url" src="profile.png" alt="Profile Pic" class="account-picture_url">
+<!--            <p id="account-picture_url" class="account-picture_url">url</p>>-->
+            <h1 class="account-username" id="account-username">Username</h1>
             <p>Karma: 12345</p>
-            <p>Member since: January 2020</p>
+            <p>Member since: <time id="account-accountCreateDate" datetime="2020-01-05">Jan 5, 2020</time></p>
         </div>
     </header>
     <main class="content">
@@ -56,8 +57,41 @@
                 <div class="formGrp">
                     <label for="editPassword">Password</label>
                     <input type="password" id="editPassword" name="password">
+                    <button type="submit">Update Profile</button>
                 </div>
-                <button type="submit">Update Profile</button>
+
+                <script> // TODO: put into own file or one for refresh, one for create comment, one for viewpost
+                document.addEventListener('DOMContentLoaded', () => {
+                    fetchAccount();
+                    // fetchCommentsData();
+                    // setInterval(fetchCommentsData, 5000);
+                });
+                function fetchAccount() {
+                    fetch('FetchAccount.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }})
+                        .then(response => {
+
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok: ' + response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            document.getElementById('account-username').textContent = data.username;
+                            document.getElementById('account-accountCreateDate').textContent =
+                                new Date(data.accountCreateDate).toLocaleDateString();
+                            document.getElementById('account-picture_url').src = data.picture_url;
+                            document.getElementById('account-picture_url').alt = `Image for ${data.headline}`;
+                        })
+                        .catch(error => {
+                            console.error('Error fetching account data:', error);
+                            alert('Error fetching Account. Please check the console for more information.');
+                        });
+                }
+                </script>
             </form>
         </aside>
     </main>
