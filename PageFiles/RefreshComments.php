@@ -6,10 +6,10 @@
 
 header('Content-Type: application/json');
 
-$host = 'localhost:3308';
-$dbname = 'cosc360test';
-$username = 'root';
-$password = '304rootpw';
+$host = 'localhost:3306';
+$dbname = 'db_75934729';
+$username = '75934729';
+$password = '75934729';
 
 try {
  
