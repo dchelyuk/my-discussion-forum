@@ -7,7 +7,7 @@ $username = '75934729';
 $password = '75934729';
 //TODO: what cookies are needed? investigate with sql databases and funtionality requirements
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $dbUsername, $dbPassword);
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $username = $_POST['username'];
