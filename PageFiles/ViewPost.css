@@ -1,0 +1,132 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #333;
+    color: #fff;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222;
+    padding: 0.625em 1.25em;
+}
+.comment {
+    border-bottom: 1px solid #ccc; 
+    padding-bottom: 15px; 
+    margin-bottom: 15px;
+}
+.navLinks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.navLinks li {
+    margin: 0 1.25em;
+}
+
+.navLinks a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.navLinks a:hover {
+    text-decoration: underline;
+}
+
+.searchForm {
+    display: flex;
+    align-items: center;
+}
+
+.searchInput {
+    margin-right: 0.5em;
+    border-radius: 0.25em;
+    border: 1px solid #ddd;
+    background-color: #333;
+    color: #fff;
+}
+
+.searchButton {
+    padding: 0.5em 0.75em;
+    border-radius: 0.25em;
+    border: none;
+    background-color: #0079d3;
+    color: #fff;
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+    padding: 1em;
+    margin-top: 1em;
+    box-sizing: border-box;
+}
+
+.left-column, .right-column {
+    flex: 1;
+    margin: 0 20px;
+    padding: 1em;
+    border: 0.125em solid #fff;
+}
+
+.main-container {
+    flex: 3;
+    padding: 20px; 
+    margin: 0 20px; 
+    border: 0.125em solid #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-container {
+    margin-bottom: 1em;
+}
+
+.post-image {
+    width: 100%;
+    height: auto;
+    margin-top: 1em;
+}
+
+.comments-section {
+    display: flex;
+    flex-direction: column; 
+}
+
+.comment {
+    margin-top: 1em;
+}
+
+.comment-form {
+    margin-top: 2em;
+}
+
+.comment-input {
+    width: 100%;
+    resize: vertical;
+    border-radius: 0.25em;
+    border: 1px solid #ddd;
+    padding: 0.5em;
+    background-color: #555;
+    color: #fff;
+}
+
+.submit-comment {
+    margin-top: 0.5em;
+    background-color: #0079d3;
+    color: #fff;
+    border: none;
+    border-radius: 0.25em;
+    padding: 0.5em 0.75em;
+    cursor: pointer;
+}

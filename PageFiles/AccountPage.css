@@ -155,12 +155,37 @@ body {
 button {
     background-color: #0079d3;
     color: #fff;
-    padding: 0.625em 0.9375em;
-    border: none;
+    padding: 1em 1em 1em 1em;
+    margin: 1em;
+    margin-top: 10em;
+    border: white;
     border-radius: 0.1875em;
     cursor: pointer;
 }
-
+.submit{
+    padding: 1em 1em 1em 1em; 
+}
 button:hover {
     background-color: #005fa3;
+}
+
+.signinContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; 
+}
+
+.signinForm {
+    width: 30%;
+    background-color: #444;
+    padding: 1.25em;
+    border-radius: 0.3125em;
+    border: 0.0625em solid #fff;
+}
+
+@media screen and (max-width: 768px) {
+    .signinForm {
+        width: 80%; 
+    }
 }
