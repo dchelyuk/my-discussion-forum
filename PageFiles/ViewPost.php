@@ -5,7 +5,7 @@ $dbname = 'db_75934729';
 $username = '75934729';
 $password = '75934729';
 
-$pdo = new PDO("mysql:host=$host;dbname=$dbname", $dbUsername, $dbPassword);
+$pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 // TODO: Make postid get from mainpage when they click on the link to view the post
 // it was working but now isnt so i removed it
