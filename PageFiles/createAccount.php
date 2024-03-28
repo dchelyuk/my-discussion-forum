@@ -12,13 +12,15 @@ $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $user = $_POST['username'];
 $pass = $_POST['password'];
+$picture_url = $_POST['https://static.thenounproject.com/png/1095867-200.png'];
 $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
 
-$sql = "INSERT INTO Users (username, accountCreateDate, password) VALUES (:username, cast(now() as datetime ), :password)";
+$sql = "INSERT INTO Users (username, accountCreateDate, password, picture_url)
+    VALUES (:username, cast(now() as datetime ), :password, :pictur_url)";
 $stmt = $conn->prepare($sql);
 session_start();
 try {
-    $stmt->execute([':username' => $user, ':password' => $hashedPassword]);
+    $stmt->execute([':username' => $user, ':password' => $hashedPassword, ':picture_url' => $picture_url]);
     $_SESSION['username'] = $user;
 
     echo json_encode(['success' => true, 'redirect' => 'MainPage.html']);
