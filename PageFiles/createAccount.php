@@ -20,7 +20,7 @@ session_start();
 try {
     $stmt->execute([':username' => $user, ':password' => $hashedPassword]);
     $_SESSION['username'] = $user;
-
+echo json_encode($_SESSION['username']);
     echo json_encode(['success' => true, 'redirect' => 'MainPage.html']);
     exit;
 } catch (PDOException $e) {

@@ -177,3 +177,12 @@ body {
 .posts-list h3, .posts-list p {
     color: #fff;
 }
+.admin-button {
+    background-color: #007bff; 
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    margin-right: 1em; 
+    border-radius: 5px;
+    cursor: pointer;
+}
