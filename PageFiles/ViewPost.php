@@ -1,9 +1,10 @@
 <?php
 header('Content-Type: application/json');
-$host = 'localhost:3308';
-$dbname = 'cosc360test';
-$dbUsername = 'root';
-$dbPassword = '304rootpw';
+$host = 'localhost:3306';
+$dbname = 'db_75934729';
+$username = '75934729';
+$password = '75934729';
+
 $pdo = new PDO("mysql:host=$host;dbname=$dbname", $dbUsername, $dbPassword);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 // TODO: Make postid get from mainpage when they click on the link to view the post
