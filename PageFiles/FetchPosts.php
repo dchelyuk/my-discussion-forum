@@ -10,7 +10,7 @@ $username = '75934729';
 $password = '75934729';
 
 try {
-$pdo = new PDO('mysql:host=localhost:3308;dbname=cosc360test', 'root', '304rootpw');
+$pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 $sql = "SELECT postId, headline FROM Posts ORDER BY postId DESC";
 
 $stmt = $pdo->prepare($sql);
