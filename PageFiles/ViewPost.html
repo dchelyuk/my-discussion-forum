@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- Very big webpage. script can be split and put into different files. this is the example for how we will perform other functionalities.
-it is mostly complete, just needs to fetch and populate post data simularily to how comment data is fetched -->
+it is mostly complete, just needs to fetch and populate topics data simularily to how comment data is fetched -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,11 +61,12 @@ it is mostly complete, just needs to fetch and populate post data simularily to 
     setInterval(fetchCommentsData, 5000);
 });
 function fetchPostData() {
-    fetch('ViewPost.php', { 
-        method: 'POST', 
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }})
+    const params = new URLSearchParams(window.location.search);
+    const postId = params.get('postId');
+
+    fetch(`ViewPost.php?postId=${postId}`, { 
+        method: 'GET'
+    })
     .then(response => {
        
         if (!response.ok) {

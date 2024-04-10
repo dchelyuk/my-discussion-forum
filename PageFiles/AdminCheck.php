@@ -1,12 +1,13 @@
 <?php
 
 header('Content-Type: application/json');
-$host = 'localhost:3306';
-$dbname = 'db_75934729';
-$username = '75934729';
-$password = '75934729';
+$host = 'localhost:3308';
+$dbname = 'cosc360test';
+$username = 'root';
+$password = '304rootpw';
 
 session_start();
+
 try {
 $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

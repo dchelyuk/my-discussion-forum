@@ -15,6 +15,7 @@
             <li><a href="CreatePost.html">Posts</a></li>
             <li><a href="AccountPage.html">Profile</a></li>
         </ul>
+        <div class="user-status"></div> <!-- Placeholder for the signed-in status -->
         <form class="searchForm" action="searchResultsPage.html" method="GET">
             <label>
                 <textarea class="searchInput" name="search" placeholder="Search..."></textarea>
@@ -30,41 +31,47 @@
                 </a></li>
         </aside>
 
-
         <section class="form-container">
             <h2>Posts</h2>
             <ul class="posts-list">
-
-                <li><a href="ViewPost.html?postId=8">
-                        <h3>Post1 Title Here</h3>
-                    </a></li>
-                <li><a href="ViewPost.html?postId=8">
-                        <h3>Post2 Title Here</h3>
-                    </a></li>
-
+                <!-- Posts will be dynamically added here -->
             </ul>
         </section>
 
         <aside class="right-column">
+            <!-- Optional content for the right column -->
         </aside>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-
             let isAdmin = false;
 
+            // Check if user is admin
             fetch('AdminCheck.php')
                 .then(response => response.json())
                 .then(data => {
-                    console.warn(data)
-                    if (data == "True") {
-                        isAdmin = true;
-                        console.warn('Admin = true')
+                    console.warn(data);
+                    isAdmin = data == "True";
+                    console.warn('Admin = ' + isAdmin);
+                    fetchPosts(isAdmin);
+                })
+                .catch(error => console.error('Error:', error));
+
+
+            fetch('IsSignedIn.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.signedIn) {
+                        const userStatusDiv = document.querySelector('.user-status');
+                        userStatusDiv.textContent = `Signed in as: ${data.username}`;
+                        userStatusDiv.style.marginRight = "20px"; // TODO: Adjust later if needed, i winged it
+                        userStatusDiv.style.float = "right"; 
+                        console.log("User is signed in");
+                    } else {
+                        userStatusDiv.textContent = `Not Signed In, Please Sign In`;
+                        console.log("User not signed in");
                     }
-                    else {
-                        console.warn('Admin = false')
-                    } fetchPosts(isAdmin);
                 })
                 .catch(error => console.error('Error:', error));
         });
@@ -82,18 +89,16 @@
                     postsList.innerHTML = ''; // Clear current list
 
                     data.posts.forEach(post => {
-                        const postItem = document.createElement('li'); // TODO: change to its own formatting 
-
-                        postItem.className = 'comment';  // same as coment see todo
+                        const postItem = document.createElement('li');
+                        postItem.className = 'comment'; // Consider renaming class to 'post-item' for clarity
                         postItem.innerHTML = `<a href="ViewPost.html?postId=${post.postId}"><h3>${post.headline}</h3></a>`;
                         if (isAdmin) {
-                            console.log('Admin signedin');
+                            console.log('Admin signed in');
                             const adminButton = document.createElement('button');
                             adminButton.textContent = 'Delete Post';
                             adminButton.classList.add('admin-button');
-                            // TODO: Make Button remove post from server 
                             adminButton.onclick = function () {
-                                console.log('Admin yeeted', post.postId);
+                                console.log('Admin deleted post', post.postId);
                                 fetch('DeletePost.php', {
                                     method: 'POST',
                                     headers: {
@@ -105,14 +110,13 @@
                                     .then(data => {
                                         if (data.success) {
                                             console.log(data.message);
-                                            // Optionally, remove the post from the DOM or refresh the posts list
                                             postItem.remove();
                                         } else {
                                             console.error(data.message);
                                         }
                                     })
                                     .catch(error => console.error('Error:', error));
-                                fetchPosts(isAdmin)
+                                fetchPosts(isAdmin);
                             }
                             postItem.appendChild(adminButton);
                         }
