@@ -45,8 +45,15 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            const params = new URLSearchParams(window.location.search);
+            const topicsList = document.querySelector('.left-column');
+            topicsList.innerHTML = ''; 
+            const postTopic = params.get('topicId');
+            const topicItem = document.createElement('li');
+                topicItem.innerHTML = `<a href="ViewTopic.html?topicId=${postTopic}"><h3>${postTopic}</h3></a>`;
+                topicsList.appendChild(topicItem);
             let isAdmin = false;
-            fetchTopics()
+         
             // Check if user is admin
             fetch('AdminCheck.php')
                 .then(response => response.json())
@@ -74,31 +81,16 @@
                     }
                 })
                 .catch(error => console.error('Error:', error));
+ 
         });
-        function fetchTopics() {
-    fetch('FetchTopics.php')
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                console.error('Error fetching topics:', data.error);
-                return;
-            }
-            const topicsList = document.querySelector('.left-column');
-            topicsList.innerHTML = ''; 
-            
-            data.topics.forEach(topic => {
-                const topicItem = document.createElement('li');
-                topicItem.innerHTML = `<a href="ViewTopic.html?topicId=${topic.postTopic}"><h3>${topic.postTopic}</h3></a>`;
-                topicsList.appendChild(topicItem);
-            });
-        })
-        .catch(error => console.error('Error fetching topics:', error));
-}
+        
         function fetchPosts(isAdmin) {
             console.warn(isAdmin);
-            fetch('FetchPosts.php')
+            fetch('FetchTopicsPosts.php')
+
                 .then(response => response.json())
                 .then(data => {
+                    console.warn(data)
                     if (data.error) {
                         console.error('Error fetching posts:', data.error);
                         return;

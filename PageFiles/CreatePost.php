@@ -35,7 +35,7 @@ $username = $_SESSION['username'] ;
 
 $headline = $_POST['postName'];
 
-$sql = "INSERT INTO Posts ( userId, postCreateDate,headline, data,picture_url) VALUES (:UserId,  cast(now() as datetime ),:headline, :body, 'https://picsum.photos/200/200' )";
+$sql = "INSERT INTO Posts ( userId, postCreateDate,headline, data,picture_url, postTopic,contentType) VALUES (:UserId,  cast(now() as datetime ),:headline, :body, 'https://picsum.photos/200/200','life','null' )";
 
 $sql1 = "Select userId from Users where username = :username";
 
