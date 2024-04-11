@@ -8,11 +8,15 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 // TODO: Make postid get from mainpage when they click on the link to view the post
 // it was working but now isnt so i removed it
 //$post_id = isset($_GET['postId']) ? $_GET['postId'] : null;
+$post_id = isset($_GET['postId']) ? $_GET['postId'] : null;
 
 // Fetch post data
-$stmt = $pdo->prepare("SELECT * FROM Posts WHERE postId = 8");
+$stmt = $pdo->prepare("SELECT * FROM Posts WHERE postId = :postId");
+$stmt->execute(['postId' => $post_id]);
+// Fetch post data
+//$stmt = $pdo->prepare("SELECT * FROM Posts WHERE postId = 8");
 //$stmt->execute(['postId' => $post_id]);
-$stmt->execute();
+//$stmt->execute();
 $post = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
