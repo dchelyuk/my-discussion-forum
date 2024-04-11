@@ -1,10 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-$host = 'localhost:3306';
-$dbname = 'db_75934729';
-$username = '75934729';
-$password = '75934729';
+include 'dbCredentials.php';
 
 $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

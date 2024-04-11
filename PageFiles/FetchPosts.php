@@ -4,10 +4,7 @@ error_reporting(0);
 // TODO figure out what data we want to display on main page under each post
 header('Content-Type: application/json');
 
-$host = 'localhost:3306';
-$dbname = 'db_75934729';
-$username = '75934729';
-$password = '75934729';
+include 'dbCredentials.php';
 
 try {
 $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);

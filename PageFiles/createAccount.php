@@ -2,10 +2,8 @@
 // creates account by inserting data into Users database
 
 header('Content-Type: application/json');
-$host = 'localhost:3306';
-$dbname = 'db_75934729';
-$username = '75934729';
-$password = '75934729';
+
+include 'dbCredentials.php';
 
 // TODO: put conn in trycatch
 $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);

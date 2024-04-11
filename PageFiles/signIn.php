@@ -1,10 +1,9 @@
 <?php
 //signs user in, verifies passwords, and creates cookie of username. more cookies mnay be needed later
 session_start();
-$host = 'localhost:3306';
-$dbname = 'db_75934729';
-$username = '75934729';
-$password = '75934729';
+
+include 'dbCredentials.php';
+
 //TODO: what cookies are needed? investigate with sql databases and funtionality requirements
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
