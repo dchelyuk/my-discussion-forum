@@ -1,8 +1,7 @@
 <?php
 // creates account by inserting data into Users database
-
 header('Content-Type: application/json');
-
+global $host, $dbname, $username, $password;
 include 'dbCredentials.php';
 
 // TODO: put conn in trycatch

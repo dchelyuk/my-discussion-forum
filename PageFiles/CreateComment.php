@@ -1,6 +1,6 @@
 <?php
 // creates comment by inserting data into comments database. currently somewhat hardcoded to test java. SEE TODOS 
-
+global $host, $dbname, $username, $password;
 include 'dbCredentials.php';
 
 ini_set('display_errors', 1);

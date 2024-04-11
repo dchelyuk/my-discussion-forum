@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-
+global $host, $dbname, $username, $password;
 include 'dbCredentials.php';
 
 session_start();

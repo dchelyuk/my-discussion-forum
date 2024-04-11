@@ -1,6 +1,7 @@
 <?php
-header('Content-Type: application/json');
 
+header('Content-Type: application/json');
+global $host, $dbname, $username, $password;
 include 'dbCredentials.php';
 
 $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);

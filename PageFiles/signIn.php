@@ -1,7 +1,7 @@
 <?php
 //signs user in, verifies passwords, and creates cookie of username. more cookies mnay be needed later
 session_start();
-
+global $host, $dbname, $username, $password;
 include 'dbCredentials.php';
 
 //TODO: what cookies are needed? investigate with sql databases and funtionality requirements

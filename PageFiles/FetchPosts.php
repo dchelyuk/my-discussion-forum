@@ -3,7 +3,7 @@ ini_set('display_errors', 0);
 error_reporting(0);
 // TODO figure out what data we want to display on main page under each post
 header('Content-Type: application/json');
-
+global $host, $dbname, $username, $password;
 include 'dbCredentials.php';
 
 try {
