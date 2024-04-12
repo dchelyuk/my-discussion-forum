@@ -16,6 +16,7 @@ is form to create post, right is add space. TODO: everything!-->
             <li><a href="CreatePost.html">Posts</a></li>
             <li><a href="AccountPage.html">Profile</a></li>
         </ul>
+        <div class="user-status"></div> <!-- Placeholder for the signed-in status -->
         <form class="searchForm" action="http://www.randyconnolly.com/tests/process.php" method="GET">
             <label>
                 <textarea class="searchInput" name="searh" placeholder="Search..."></textarea>
@@ -62,6 +63,35 @@ is form to create post, right is add space. TODO: everything!-->
 
         </div>
     </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let isAdmin = false;
+        fetch('AdminCheck.php')
+            .then(response => response.json())
+            .then(data => {
+                console.warn(data);
+                isAdmin = data == "True";
+                console.warn('Admin = ' + isAdmin);
+                fetchPosts(isAdmin);
+            })
+            .catch(error => console.error('Error:', error));
+        fetch('IsSignedIn.php')
+            .then(response => response.json())
+            .then(data => {
+                if (data.signedIn) {
+                    const userStatusDiv = document.querySelector('.user-status');
+                    userStatusDiv.textContent = `Signed in as: ${data.username}`;
+                    userStatusDiv.style.marginRight = "20px"; // TODO: Adjust later if needed, i winged it
+                    userStatusDiv.style.float = "right";
+                    console.log("User is signed in");
+                } else {
+                    userStatusDiv.textContent = `Not Signed In, Please Sign In`;
+                    console.log("User not signed in");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>
 </body>
 
 </html>

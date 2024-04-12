@@ -16,6 +16,7 @@ it is mostly complete, just needs to fetch and populate topics data simularily t
             <li><a href="CreatePost.html">Posts</a></li>
             <li><a href="AccountPage.html">Profile</a></li>
         </ul>
+        <div class="user-status"></div> <!-- Placeholder for the signed-in status -->
         <form class="searchForm" action="searchResultsPage.html" method="GET">
             <label>
                 <textarea class="searchInput" name="search" placeholder="Search..."></textarea>
@@ -55,11 +56,37 @@ it is mostly complete, just needs to fetch and populate topics data simularily t
             </section>
         </div>
         <script> // TODO: put into own file or one for refresh, one for create comment, one for viewpost
-      document.addEventListener('DOMContentLoaded', () => {
-        fetchPostData(); 
-    fetchCommentsData();
-    setInterval(fetchCommentsData, 5000);
-});
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchPostData();
+            fetchCommentsData();
+            setInterval(fetchCommentsData, 5000);
+
+            let isAdmin = false;
+            fetch('AdminCheck.php')
+                .then(response => response.json())
+                .then(data => {
+                    console.warn(data);
+                    isAdmin = data == "True";
+                    console.warn('Admin = ' + isAdmin);
+                    fetchPosts(isAdmin);
+                })
+                .catch(error => console.error('Error:', error));
+                fetch('IsSignedIn.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.signedIn) {
+                            const userStatusDiv = document.querySelector('.user-status');
+                            userStatusDiv.textContent = `Signed in as: ${data.username}`;
+                            userStatusDiv.style.marginRight = "20px"; // TODO: Adjust later if needed, i winged it
+                            userStatusDiv.style.float = "right";
+                            console.log("User is signed in");
+                        } else {
+                            userStatusDiv.textContent = `Not Signed In, Please Sign In`;
+                            console.log("User not signed in");
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+        });
 function fetchPostData() {
     const params = new URLSearchParams(window.location.search);
     const postId = params.get('postId');

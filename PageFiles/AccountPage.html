@@ -17,7 +17,8 @@
             <li><a href="CreatePost.html">Posts</a></li>
             <li><a href="AccountPage.html">Profile</a></li>
         </ul>
-        <form class="searchForm" action="http://www.randyconnolly.com/tests/process.php" method="GET">
+        <div class="user-status"></div> <!-- Placeholder for the signed-in status -->
+        <form class="searchForm" action="searchResultsPage.html" method="GET">
             <label>
                 <textarea class="searchInput" name="search" placeholder="Search..."></textarea>
             </label>
@@ -26,7 +27,7 @@
     </nav>
     <header class="profileHdr">
         <div class="profileInfo">
-            <img id="account-picture_url" src="profile.png" alt="Profile Pic" class="account-picture_url">
+            <img id="account-image" src="profile.png" alt="Profile Pic" class="account-image">
 <!--            <p id="account-picture_url" class="account-picture_url">url</p>>-->
             <h1 class="account-username" id="account-username">Username</h1>
             <p>Karma: 12345</p>
@@ -65,6 +66,31 @@
                     fetchAccount();
                     // fetchCommentsData();
                     // setInterval(fetchCommentsData, 5000);
+                    let isAdmin = false;
+                    fetch('AdminCheck.php')
+                        .then(response => response.json())
+                        .then(data => {
+                            console.warn(data);
+                            isAdmin = data == "True";
+                            console.warn('Admin = ' + isAdmin);
+                            fetchPosts(isAdmin);
+                        })
+                        .catch(error => console.error('Error:', error));
+                    fetch('IsSignedIn.php')
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.signedIn) {
+                                const userStatusDiv = document.querySelector('.user-status');
+                                userStatusDiv.textContent = `Signed in as: ${data.username}`;
+                                userStatusDiv.style.marginRight = "20px"; // TODO: Adjust later if needed, i winged it
+                                userStatusDiv.style.float = "right";
+                                console.log("User is signed in");
+                            } else {
+                                userStatusDiv.textContent = `Not Signed In, Please Sign In`;
+                                console.log("User not signed in");
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
                 });
                 function fetchAccount() {
                     fetch('FetchAccount.php', {
@@ -73,7 +99,6 @@
                             'Content-Type': 'application/x-www-form-urlencoded'
                         }})
                         .then(response => {
-
                             if (!response.ok) {
                                 throw new Error('Network response was not ok: ' + response.statusText);
                             }
@@ -83,8 +108,13 @@
                             document.getElementById('account-username').textContent = data.username;
                             document.getElementById('account-accountCreateDate').textContent =
                                 new Date(data.accountCreateDate).toLocaleDateString();
-                            document.getElementById('account-picture_url').src = data.picture_url;
-                            document.getElementById('account-picture_url').alt = `Image for ${data.headline}`;
+                            if (data.image != null) {
+                                document.getElementById('account-image').src = data.image;
+                                document.getElementById('account-image').alt = `Image for ${data.username}`;
+                            } else {
+                                document.getElementById('account-image').src = 'profile.png'
+                                document.getElementById('account-image').alt = `Image for ${data.username}`;
+                            }
                         })
                         .catch(error => {
                             console.error('Error fetching account data:', error);

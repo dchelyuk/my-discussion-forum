@@ -19,7 +19,8 @@ try {
     if ($stmt->rowCount() > 0) {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if (password_verify($password, $user['password'])) {
-            $_SESSION['username'] = $user['username']; 
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['userId'] = $user['userId'];
             header("Location: MainPage.html");
             echo json_encode(['success' => true]);
             exit;

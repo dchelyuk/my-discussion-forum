@@ -2,25 +2,37 @@
 header('Content-Type: application/json');
 global $host, $dbname, $username, $password;
 include 'dbCredentials.php';
+session_start();
 
 $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-// TODO: Make userId get from mainpage when they click on the link to view Account
-$userId = 2;
 
-$user_id = $_GET['userId'] ?? null;
+$user_id = $_SESSION['userId'] ?? null;
 
-// Fetch post data
-$stmt = $pdo->prepare("SELECT username, accountCreateDate, picture_url FROM Users WHERE userId = :userId;");
-$stmt->execute(['userId' => $userId]);
-$account = $stmt->fetch(PDO::FETCH_ASSOC);
+if ($user_id != null) {
+    $stmt = $pdo->prepare("SELECT username, accountCreateDate, image, contentType FROM Users  as u left join userImages as uI on u.userId = uI.userId WHERE u.userId = :userId;");
+    $stmt->execute(['userId' => $user_id]);
 
-//echo $account;
+    if ($stmt->rowCount() > 0) {
+        // Fetch image blob data and image type
+        $row = $stmt->fetch();
+        $account['username'] = $row['username'];
+        $account['accountCreateDate'] = $row['accountCreateDate'];
+        if ($row['contentType'] != null) {
+        $account['image'] = 'data:' . $row['contentType'] . ';base64,' . base64_encode($row['image']);
+        } else {
+            $account['image'] = null;
+        }
+    }
+} else {
+    $account['username'] = "Unregistered user";
+    $account['accountCreateDate'] = "Not registered";
+    $account['image'] = null;
+}
 
 $response = [
     'username' => $account['username'],
     'accountCreateDate' => $account['accountCreateDate'],
-    'picture_url' => $account['picture_url']
+    'image' => $account['image']
 ];
-
 echo json_encode($response);

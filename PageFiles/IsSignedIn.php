@@ -1,10 +1,8 @@
 <?php
 
 header('Content-Type: application/json');
-$host = 'localhost:3308';
-$dbname = 'cosc360test';
-$username = 'root';
-$password = '304rootpw';
+global $host, $dbname, $username, $password;
+include 'dbCredentials.php';
 
 session_start();
 
