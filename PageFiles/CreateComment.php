@@ -2,12 +2,14 @@
 // creates comment by inserting data into comments database. currently somewhat hardcoded to test java. SEE TODOS 
 global $host, $dbname, $username, $password;
 include 'dbCredentials.php';
+session_start();
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 header('Content-Type: application/json');
 //TODO: put con in try catch and echo message
 
+$postId = $_SESSION['postId'];
 try {
 $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);}
@@ -25,11 +27,11 @@ session_start();
 
 //    $sql_username_call = "select username from Users where userid = 1";
 
-$sql = "INSERT INTO Comments (postId, userId, commentCreateDate, data) VALUES (8, 2,  cast(now() as datetime ), :body)";
+$sql = "INSERT INTO Comments (postId, userId, commentCreateDate, data) VALUES (:postId, 2,  cast(now() as datetime ), :body)";
 $stmt = $conn->prepare($sql);
 
 try {
-    $stmt->execute([':body' => $body]);
+    $stmt->execute([':postId' => $postId, ':body' => $body]);
     echo json_encode(['success' => true]);
 } catch (PDOException $e) {
     echo json_encode(['success' => false, 'message' => $e->getMessage()]);

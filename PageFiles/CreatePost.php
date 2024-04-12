@@ -1,10 +1,9 @@
 <?php
 // creates comment by inserting data into comments database. currently somewhat hardcoded to test java. SEE TODOS 
 
-$host = 'localhost:3308';
-$dbname = 'cosc360test';
-$username = 'root';
-$password = '304rootpw';
+global $host, $dbname, $username, $password;
+include 'dbCredentials.php';
+session_start();
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
