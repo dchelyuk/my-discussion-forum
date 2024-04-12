@@ -12,8 +12,13 @@ try {
 
     $sql = "SELECT username FROM Users WHERE username = :usern";
     $stmt = $conn->prepare($sql);
-    $stmt->execute(['usern' => $_SESSION['username']]);
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if($_SESSION['username']) {
+        $stmt->execute(['usern' => $_SESSION['username']]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    else {
+        $result = null;
+    }
     if ($result != null) {
         // Assuming the username is stored in session
         echo json_encode(['signedIn' => true, 'username' => $_SESSION['username']]);
