@@ -1,9 +1,11 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
     background-color: #333;
     color: #fff;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .nav {
@@ -12,6 +14,27 @@ body {
     align-items: center;
     background-color: #222;
     padding: 0.625em 1.25em;
+}
+
+.navLinks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.navLinks li {
+    margin: 0 1.25em;
+}
+
+.navLinks a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.navLinks a:hover {
+    text-decoration: underline;
 }
 
 .searchForm {
@@ -39,26 +62,6 @@ body {
 
 .searchButton:hover {
     background-color: #005fa3;
-}
-.navLinks {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-}
-
-.navLinks li {
-    margin: 0 1.25em;
-}
-
-.navLinks a {
-    color: #fff;
-    text-decoration: none;
-}
-
-.navLinks a:hover {
-    text-decoration: underline;
 }
 
 .profileHdr {
@@ -157,7 +160,6 @@ button {
     color: #fff;
     padding: 1em 1em 1em 1em;
     margin: 1em;
-    margin-top: 10em;
     border: white;
     border-radius: 0.1875em;
     cursor: pointer;
@@ -169,14 +171,14 @@ button:hover {
     background-color: #005fa3;
 }
 
-.signinContainer {
+.signInContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 80vh; 
 }
 
-.signinForm {
+.signInForm {
     width: 30%;
     background-color: #444;
     padding: 1.25em;
@@ -185,7 +187,7 @@ button:hover {
 }
 
 @media screen and (max-width: 768px) {
-    .signinForm {
+    .signInForm {
         width: 80%; 
     }
 }
