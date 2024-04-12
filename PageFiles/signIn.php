@@ -1,10 +1,9 @@
 <?php
 //signs user in, verifies passwords, and creates cookie of username. more cookies mnay be needed later
 session_start();
-$host = 'localhost:3306';
-$dbname = 'db_75934729';
-$username = '75934729';
-$password = '75934729';
+global $host, $dbname, $username, $password;
+include 'dbCredentials.php';
+
 //TODO: what cookies are needed? investigate with sql databases and funtionality requirements
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -20,7 +19,8 @@ try {
     if ($stmt->rowCount() > 0) {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if (password_verify($password, $user['password'])) {
-            $_SESSION['username'] = $user['username']; 
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['userId'] = $user['userId'];
             header("Location: MainPage.html");
             echo json_encode(['success' => true]);
             exit;

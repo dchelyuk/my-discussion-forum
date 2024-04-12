@@ -1,20 +1,28 @@
 <?php
+
 header('Content-Type: application/json');
-$host = 'localhost:3306';
-$dbname = 'db_75934729';
-$username = '75934729';
-$password = '75934729';
+global $host, $dbname, $username, $password;
+include 'dbCredentials.php';
+session_start();
+
+
 
 $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 // TODO: Make postid get from mainpage when they click on the link to view the post
 // it was working but now isnt so i removed it
 //$post_id = isset($_GET['postId']) ? $_GET['postId'] : null;
+$post_id = isset($_GET['postId']) ? $_GET['postId'] : null;
+
+$_SESSION['postId'] = $post_id;
 
 // Fetch post data
-$stmt = $pdo->prepare("SELECT * FROM Posts WHERE postId = 8");
+$stmt = $pdo->prepare("SELECT * FROM Posts WHERE postId = :postId");
+$stmt->execute(['postId' => $post_id]);
+// Fetch post data
+//$stmt = $pdo->prepare("SELECT * FROM Posts WHERE postId = 8");
 //$stmt->execute(['postId' => $post_id]);
-$stmt->execute();
+//$stmt->execute();
 $post = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
@@ -24,7 +32,7 @@ $response = [
     'postCreateDate' => $post['postCreateDate'],
     'headline' => $post['headline'],
     'data' => $post['data'],
-    'picture_url' => $post['picture_url'],
+//    'picture_url' => $post['picture_url'],
 ];
 
 echo json_encode($response);
