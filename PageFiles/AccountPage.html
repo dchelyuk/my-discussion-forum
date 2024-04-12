@@ -68,6 +68,16 @@
 <!--                </div>-->
 <!--            </form>-->
             <form method="post" action="updateProfile.php" enctype="multipart/form-data">
+                    <h2>Edit Profile</h2>
+                    <div class="formGrp">
+                        <label for="editUsername">Username</label>
+                        <input type="text" id="editUsername" name="username">
+                    </div>
+                    <div class="formGrp">
+                        <label for="editPassword">Password</label>
+                        <input type="password" id="editPassword" name="password">
+                        <button type="submit">Update Profile</button>
+                    </div>
                 <input type="file" name="userImage" id="userImage" required><br><br>
                 <button type="submit">Update User Image</button>
             </form>
