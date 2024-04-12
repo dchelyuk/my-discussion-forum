@@ -54,3 +54,6 @@ try {
     echo json_encode(['success' => false, 'message' => $e->getMessage()]);
 }
 
+header("Location: MainPage.html");
+exit;
+

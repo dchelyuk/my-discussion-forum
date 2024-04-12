@@ -2,7 +2,7 @@
 
 
 // Refreshes comments from database. postid is hardcoded until main page is completed
-
+session_start();
 
 header('Content-Type: application/json');
 global $host, $dbname, $username, $password;
@@ -15,8 +15,7 @@ try {
     
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-   //TODO: make postid dynamic
-    $post_id = 8;
+     $post_id = $_SESSION['postId'];
 
     $sql = "select * from Comments where postId = $post_id  order by commentCreateDate desc;";
 

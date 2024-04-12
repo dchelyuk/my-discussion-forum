@@ -3,6 +3,9 @@
 header('Content-Type: application/json');
 global $host, $dbname, $username, $password;
 include 'dbCredentials.php';
+session_start();
+
+
 
 $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -10,6 +13,8 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 // it was working but now isnt so i removed it
 //$post_id = isset($_GET['postId']) ? $_GET['postId'] : null;
 $post_id = isset($_GET['postId']) ? $_GET['postId'] : null;
+
+$_SESSION['postId'] = $post_id;
 
 // Fetch post data
 $stmt = $pdo->prepare("SELECT * FROM Posts WHERE postId = :postId");
@@ -27,7 +32,7 @@ $response = [
     'postCreateDate' => $post['postCreateDate'],
     'headline' => $post['headline'],
     'data' => $post['data'],
-    'picture_url' => $post['picture_url'],
+//    'picture_url' => $post['picture_url'],
 ];
 
 echo json_encode($response);
