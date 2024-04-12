@@ -116,6 +116,17 @@ body {
 }
 
 .cancel-button,
+
+button {
+    background-color: #0079d3;
+    color: #fff;
+    padding: 1em 1em 1em 1em;
+    margin: 1em;
+    border: white;
+    border-radius: 0.1875em;
+    cursor: pointer;
+}
+
 .submit-post {
     background-color: #0079d3;
     color: #fff;
